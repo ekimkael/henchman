@@ -45,6 +45,10 @@
     "typescript": "*",
     "vite": "^4.0.0"
   },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,}": "eslint .",
+    "*.{js,css}": "prettier --write"
+  },
   "repository": "https://github.com/ekimkael/henchman.git",
   "author": "ekimkael <michelmbili@gmail.com>",
   "license": "MIT"
