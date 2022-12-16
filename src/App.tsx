@@ -3,6 +3,7 @@ import { RouterProvider } from "react-router-dom"
 import { ChakraProvider } from "@chakra-ui/react"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+
 // Create a client
 const queryClient = new QueryClient()
 
