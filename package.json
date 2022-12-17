@@ -32,6 +32,8 @@
     "@types/react-dom": "^18.0.9",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@vitejs/plugin-react": "^3.0.0",
+    "commitizen": "^4.2.6",
+    "cz-conventional-changelog": "3.3.0",
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-standard-with-typescript": "^24.0.0",
@@ -47,5 +49,10 @@
   },
   "repository": "https://github.com/ekimkael/henchman.git",
   "author": "ekimkael <michelmbili@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
 }
