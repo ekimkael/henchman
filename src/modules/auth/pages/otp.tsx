@@ -50,7 +50,7 @@ const OtpPage: React.FC = () => {
 			</Box>
 
 			<form onSubmit={handleSubmit(onSubmit)}>
-				<FormControl>
+				<FormControl isInvalid={!!errors?.pin}>
 					<HStack justify="center">
 						<Controller
 							name="pin"
@@ -72,11 +72,11 @@ const OtpPage: React.FC = () => {
 				</FormControl>
 
 				<Button
-					type="submit"
-					colorScheme="messenger"
-					w="full"
 					mt={6}
+					w="full"
+					type="submit"
 					isDisabled={!isValid}
+					colorScheme="messenger"
 				>
 					Verify
 				</Button>

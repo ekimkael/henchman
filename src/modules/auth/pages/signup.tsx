@@ -41,7 +41,7 @@ const SignupPage: React.FC<{}> = () => {
 		>
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<HStack>
-					<FormControl id="firstName">
+					<FormControl id="firstName" isInvalid={!!errors?.firstname}>
 						<FormLabel>First Name</FormLabel>
 						<Input placeholder="John" {...register("firstname")} />
 
@@ -50,13 +50,13 @@ const SignupPage: React.FC<{}> = () => {
 						) : null}
 					</FormControl>
 
-					<FormControl id="lastName">
+					<FormControl id="lastName" isInvalid={!!errors?.lastname}>
 						<FormLabel>Last Name</FormLabel>
 						<Input placeholder="Doe" {...register("lastname")} />
 					</FormControl>
 				</HStack>
 
-				<FormControl id="email">
+				<FormControl id="email" isInvalid={!!errors?.email}>
 					<FormLabel>Email address</FormLabel>
 					<Input
 						type="email"
@@ -65,7 +65,7 @@ const SignupPage: React.FC<{}> = () => {
 					/>
 				</FormControl>
 
-				<FormControl id="password">
+				<FormControl id="password" isInvalid={!!errors?.password}>
 					<FormLabel>Password</FormLabel>
 					<InputGroup>
 						<Input

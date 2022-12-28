@@ -1,5 +1,3 @@
-import React from "react"
-import AuthLayout from "../layouts"
 import {
 	Text,
 	Input,
@@ -7,6 +5,8 @@ import {
 	FormControl,
 	FormErrorMessage,
 } from "@chakra-ui/react"
+import React from "react"
+import AuthLayout from "../layouts"
 import { useNavigate } from "react-router-dom"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { SubmitHandler, useForm } from "react-hook-form"
@@ -14,7 +14,7 @@ import { SubmitHandler, useForm } from "react-hook-form"
 import { schema } from "../utils/validations"
 import { ForgotPassword } from "../utils/types"
 
-const ForgotPasswordPage: React.FC<{}> = () => {
+const ForgotPasswordPage: React.FC = () => {
 	const navigate = useNavigate()
 	const methods = useForm<ForgotPassword>({
 		mode: "onChange",
@@ -40,7 +40,7 @@ const ForgotPasswordPage: React.FC<{}> = () => {
 			</Text>
 
 			<form onSubmit={handleSubmit(onSubmit)}>
-				<FormControl id="email">
+				<FormControl id="email" isInvalid={!!errors?.email}>
 					<Input
 						type="email"
 						{...register("email")}
@@ -56,8 +56,8 @@ const ForgotPasswordPage: React.FC<{}> = () => {
 					mt={6}
 					w="full"
 					type="submit"
-					colorScheme="messenger"
 					isDisabled={!isValid}
+					colorScheme="messenger"
 				>
 					Request Reset
 				</Button>
