@@ -1,18 +1,22 @@
-import { createBrowserRouter } from "react-router-dom"
+import React from "react"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
 
-const router = createBrowserRouter([
-	{
-		path: "/",
-		element: <div>hello</div>,
-	},
-	{
-		path: "/signin",
-		element: <h1>Signin</h1>,
-	},
-	{
-		path: "/signup",
-		element: <h1>Signup</h1>,
-	},
-])
+// import Navbar from "../components/Navbar"
+import AuthRoutes from "../modules/auth/route"
 
-export default router
+// interface Props = {}
+
+const RootRouter: React.FC<{}> = (props) => {
+	return (
+		<BrowserRouter>
+			{/* <Navbar /> */}
+
+			<Routes>
+				<Route path="/" element={<div />} />
+				<Route path="auth/*" element={<AuthRoutes />} />
+			</Routes>
+		</BrowserRouter>
+	)
+}
+
+export default RootRouter

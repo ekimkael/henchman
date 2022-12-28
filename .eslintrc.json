@@ -22,6 +22,9 @@
     "rules": {
         "indent":["error","tab"],
         "no-tabs":"off",
+        "checksVoidReturn": "off",
+        "@typescript-eslint/no-misused-promises": "off",
+        "@typescript-eslint/strict-boolean-expressions": "off",
         "@typescript-eslint/explicit-function-return-type": "off"
     },
     "ignorePatterns":["vite.config.ts","vite-env.d.ts"]
