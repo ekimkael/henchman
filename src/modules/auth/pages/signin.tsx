@@ -65,7 +65,7 @@ const SigninPage: React.FC<{}> = () => {
 				</FormControl>
 
 				<HStack justify="space-between" my={3}>
-					<Checkbox>Remember me</Checkbox>
+					<Checkbox colorScheme="messenger">Remember me</Checkbox>
 					<Link to="/auth/forgot-password">Forgot password</Link>
 				</HStack>
 

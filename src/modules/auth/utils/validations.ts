@@ -4,6 +4,7 @@ export const schema = {
 	signin: yup.object().shape({
 		email: yup.string().email().required(),
 		password: yup.string().required(),
+		// isRemember: yup.boolean().notRequired(),
 	}),
 	signup: yup.object().shape({
 		firstname: yup.string().required(),
@@ -15,6 +16,6 @@ export const schema = {
 		email: yup.string().email().required(),
 	}),
 	otp: yup.object().shape({
-		email: yup.string().required(),
+		pin: yup.string().required(),
 	}),
 }

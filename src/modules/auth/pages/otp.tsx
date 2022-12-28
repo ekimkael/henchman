@@ -1,6 +1,4 @@
-import React from "react"
 import {
-	Box,
 	Text,
 	HStack,
 	Button,
@@ -9,23 +7,24 @@ import {
 	PinInputField,
 	FormErrorMessage,
 } from "@chakra-ui/react"
-import AuthLayout from "../layouts"
+import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { Controller, SubmitHandler, useForm } from "react-hook-form"
 
+import AuthLayout from "../layouts"
 import { OTPFormData } from "../utils/types"
 import { schema } from "../utils/validations"
 
 const OtpPage: React.FC = () => {
 	const email = "username@mail.com"
+	const [isLoading, setIsLoading] = useState(false)
 
 	const navigate = useNavigate()
 	const methods = useForm<OTPFormData>({
 		mode: "onChange",
 		resolver: yupResolver(schema.otp),
 	})
-
 	const { control, handleSubmit } = methods
 	const { errors, isValid } = methods.formState
 
@@ -40,14 +39,10 @@ const OtpPage: React.FC = () => {
 			linkText="Back to signin"
 			linkURL="/auth/signin"
 		>
-			<Box textAlign="center">
-				<Text as="span" fontSize="lg" color="gray.600">
-					We have sent code to your email
-				</Text>
-				<Text as="span" color="gray.600" fontWeight="bold" fontSize="lg">
-					{` ${email}`}
-				</Text>
-			</Box>
+			<Text textAlign="center" fontSize="lg" color="gray.600">
+				<Text as="span">We have sent code to your email</Text>
+				<Text as="strong">{` ${email}`}</Text>
+			</Text>
 
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<FormControl isInvalid={!!errors?.pin}>
@@ -56,7 +51,12 @@ const OtpPage: React.FC = () => {
 							name="pin"
 							control={control}
 							render={({ field: { onChange } }) => (
-								<PinInput onChange={onChange}>
+								<PinInput
+									onChange={(value) => onChange(value)}
+									onComplete={() => setIsLoading(true)}
+								>
+									<PinInputField />
+									<PinInputField />
 									<PinInputField />
 									<PinInputField />
 									<PinInputField />
@@ -76,6 +76,7 @@ const OtpPage: React.FC = () => {
 					w="full"
 					type="submit"
 					isDisabled={!isValid}
+					isLoading={isLoading}
 					colorScheme="messenger"
 				>
 					Verify

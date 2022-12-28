@@ -1,6 +1,7 @@
 export interface SigninFormData {
 	email: string
 	password: string
+	// isRemember?: boolean
 }
 
 export interface SignupFormData {

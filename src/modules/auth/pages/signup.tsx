@@ -46,13 +46,17 @@ const SignupPage: React.FC<{}> = () => {
 						<Input placeholder="John" {...register("firstname")} />
 
 						{errors.firstname ? (
-							<FormErrorMessage>Email is required.</FormErrorMessage>
+							<FormErrorMessage>{errors?.firstname?.message}</FormErrorMessage>
 						) : null}
 					</FormControl>
 
 					<FormControl id="lastName" isInvalid={!!errors?.lastname}>
 						<FormLabel>Last Name</FormLabel>
 						<Input placeholder="Doe" {...register("lastname")} />
+
+						{errors.lastname ? (
+							<FormErrorMessage>{errors?.lastname?.message}</FormErrorMessage>
+						) : null}
 					</FormControl>
 				</HStack>
 
@@ -63,6 +67,10 @@ const SignupPage: React.FC<{}> = () => {
 						{...register("email")}
 						placeholder="your.email@example.com"
 					/>
+
+					{errors.email ? (
+						<FormErrorMessage>{errors?.email?.message}</FormErrorMessage>
+					) : null}
 				</FormControl>
 
 				<FormControl id="password" isInvalid={!!errors?.password}>
@@ -82,6 +90,10 @@ const SignupPage: React.FC<{}> = () => {
 							</Button>
 						</InputRightElement>
 					</InputGroup>
+
+					{errors.password ? (
+						<FormErrorMessage>{errors?.password?.message}</FormErrorMessage>
+					) : null}
 				</FormControl>
 
 				<Button

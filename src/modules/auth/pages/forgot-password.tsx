@@ -6,11 +6,11 @@ import {
 	FormErrorMessage,
 } from "@chakra-ui/react"
 import React from "react"
-import AuthLayout from "../layouts"
 import { useNavigate } from "react-router-dom"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { SubmitHandler, useForm } from "react-hook-form"
 
+import AuthLayout from "../layouts"
 import { schema } from "../utils/validations"
 import { ForgotPassword } from "../utils/types"
 
