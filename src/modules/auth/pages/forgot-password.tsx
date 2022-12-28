@@ -1,49 +1,68 @@
+import React from "react"
+import AuthLayout from "../layouts"
 import {
 	Text,
 	Input,
-	Stack,
-	VStack,
 	Button,
-	Heading,
 	FormControl,
+	FormErrorMessage,
 } from "@chakra-ui/react"
-import React from "react"
-import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
+import { yupResolver } from "@hookform/resolvers/yup"
+import { SubmitHandler, useForm } from "react-hook-form"
+
+import { schema } from "../utils/validations"
+import { ForgotPassword } from "../utils/types"
 
 const ForgotPasswordPage: React.FC<{}> = () => {
+	const navigate = useNavigate()
+	const methods = useForm<ForgotPassword>({
+		mode: "onChange",
+		resolver: yupResolver(schema.forgotPassword),
+	})
+
+	const { register, handleSubmit } = methods
+	const { errors, isValid } = methods.formState
+
+	const onSubmit: SubmitHandler<ForgotPassword> = (inputs) => {
+		console.log({ inputs })
+		navigate("/auth/signin")
+	}
+
 	return (
-		<VStack minH="100vh" align="center" justify="center" bg="gray.50">
-			<Heading fontSize="3xl">Forgot your password?</Heading>
+		<AuthLayout
+			title="Forgot your password?"
+			linkText="Go to signin"
+			linkURL="/auth/signin"
+		>
+			<Text color="gray.600" textAlign="center" fontSize="lg">
+				You&apos;ll get an email with a reset link
+			</Text>
 
-			<Stack
-				p={6}
-				my={12}
-				w="full"
-				maxW="md"
-				bg="white"
-				spacing={4}
-				rounded="xl"
-				boxShadow="sm">
-				<Text
-					color="gray.600"
-					textAlign="center"
-					fontSize={{ base: "sm", md: "lg" }}>
-					You&apos;ll get an email with a reset link
-				</Text>
+			<form onSubmit={handleSubmit(onSubmit)}>
+				<FormControl id="email">
+					<Input
+						type="email"
+						{...register("email")}
+						placeholder="your.email@example.com"
+					/>
 
-				<form>
-					<FormControl id="email">
-						<Input type="email" placeholder="your.email@example.com" />
-					</FormControl>
+					{errors.email !== null ? (
+						<FormErrorMessage>{errors?.email?.message}</FormErrorMessage>
+					) : null}
+				</FormControl>
 
-					<Button colorScheme="yellow" w="full" mt={6}>
-						Request Reset
-					</Button>
-				</form>
-			</Stack>
-
-			<Link to="/auth/signin">Go to signin</Link>
-		</VStack>
+				<Button
+					mt={6}
+					w="full"
+					type="submit"
+					colorScheme="messenger"
+					isDisabled={!isValid}
+				>
+					Request Reset
+				</Button>
+			</form>
+		</AuthLayout>
 	)
 }
 
