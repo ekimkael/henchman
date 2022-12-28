@@ -2,64 +2,86 @@ import React from "react"
 import {
 	Box,
 	Text,
-	Stack,
 	HStack,
-	VStack,
 	Button,
-	Heading,
 	PinInput,
 	FormControl,
 	PinInputField,
+	FormErrorMessage,
 } from "@chakra-ui/react"
-import { Link } from "react-router-dom"
+import AuthLayout from "../layouts"
+import { useNavigate } from "react-router-dom"
+import { yupResolver } from "@hookform/resolvers/yup"
+import { Controller, SubmitHandler, useForm } from "react-hook-form"
 
-const OtpPage: React.FC<{}> = () => {
+import { OTPFormData } from "../utils/types"
+import { schema } from "../utils/validations"
+
+const OtpPage: React.FC = () => {
 	const email = "username@mail.com"
 
+	const navigate = useNavigate()
+	const methods = useForm<OTPFormData>({
+		mode: "onChange",
+		resolver: yupResolver(schema.otp),
+	})
+
+	const { control, handleSubmit } = methods
+	const { errors, isValid } = methods.formState
+
+	const onSubmit: SubmitHandler<OTPFormData> = (inputs) => {
+		console.log({ inputs })
+		navigate("/")
+	}
+
 	return (
-		<VStack minH="100vh" align="center" justify="center" bg="gray.50">
-			<Heading fontSize="3xl">Verify your Email</Heading>
+		<AuthLayout
+			title="Verify your Email"
+			linkText="Back to signin"
+			linkURL="/auth/signin"
+		>
+			<Box textAlign="center">
+				<Text as="span" fontSize="lg" color="gray.600">
+					We have sent code to your email
+				</Text>
+				<Text as="span" color="gray.600" fontWeight="bold" fontSize="lg">
+					{` ${email}`}
+				</Text>
+			</Box>
 
-			<Stack
-				p={6}
-				my={10}
-				w="full"
-				maxW="sm"
-				bg="white"
-				spacing={4}
-				rounded="xl"
-				boxShadow="sm">
-				<Box textAlign="center">
-					<Text as="span" fontSize={{ base: "sm", sm: "md" }} color="gray.600">
-						We have sent code to your email
-					</Text>
-					<Text
-						as="span"
-						fontWeight="bold"
-						fontSize={{ base: "sm", sm: "md" }}
-						color="gray.600">
-						{` ${email}`}
-					</Text>
-				</Box>
-
+			<form onSubmit={handleSubmit(onSubmit)}>
 				<FormControl>
 					<HStack justify="center">
-						<PinInput>
-							<PinInputField />
-							<PinInputField />
-							<PinInputField />
-							<PinInputField />
-						</PinInput>
+						<Controller
+							name="pin"
+							control={control}
+							render={({ field: { onChange } }) => (
+								<PinInput onChange={onChange}>
+									<PinInputField />
+									<PinInputField />
+									<PinInputField />
+									<PinInputField />
+								</PinInput>
+							)}
+						/>
 					</HStack>
+
+					{errors.pin !== null ? (
+						<FormErrorMessage>{errors?.pin?.message}</FormErrorMessage>
+					) : null}
 				</FormControl>
 
-				<Stack spacing={6}>
-					<Button colorScheme="yellow">Verify</Button>
-				</Stack>
-			</Stack>
-
-			<Link to="/auth/signin">Back to signin</Link>
-		</VStack>
+				<Button
+					type="submit"
+					colorScheme="messenger"
+					w="full"
+					mt={6}
+					isDisabled={!isValid}
+				>
+					Verify
+				</Button>
+			</form>
+		</AuthLayout>
 	)
 }
 

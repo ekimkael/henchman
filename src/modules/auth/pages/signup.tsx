@@ -1,78 +1,100 @@
 import {
 	Input,
-	Stack,
-	VStack,
 	HStack,
 	Button,
-	Heading,
 	FormLabel,
 	InputGroup,
 	FormControl,
+	FormErrorMessage,
 	InputRightElement,
 } from "@chakra-ui/react"
 import React, { useState } from "react"
-import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
+import { yupResolver } from "@hookform/resolvers/yup"
+import { useForm, SubmitHandler } from "react-hook-form"
+
+import AuthLayout from "../layouts"
+import { schema } from "../utils/validations"
+import { SignupFormData } from "../utils/types"
 
 const SignupPage: React.FC<{}> = () => {
+	const navigate = useNavigate()
 	const [show, setShow] = useState(false)
 
+	const methods = useForm<SignupFormData>({
+		mode: "onChange",
+		resolver: yupResolver(schema.signup),
+	})
+	const { register, handleSubmit } = methods
+	const { errors, isValid } = methods.formState
+
+	const onSubmit: SubmitHandler<SignupFormData> = (inputs) => {
+		console.log({ inputs })
+		navigate("/auth/otp")
+	}
+
 	return (
-		<VStack minH="100vh" align="center" justify="center" bg="gray.50">
-			<Heading fontSize="3xl" textAlign="center">
-				Create your account
-			</Heading>
+		<AuthLayout
+			linkURL="/auth/signin"
+			title="Create your account"
+			linkText="Already have an account? signin"
+		>
+			<form onSubmit={handleSubmit(onSubmit)}>
+				<HStack>
+					<FormControl id="firstName">
+						<FormLabel>First Name</FormLabel>
+						<Input placeholder="John" {...register("firstname")} />
 
-			<Stack
-				p={6}
-				my={12}
-				w="full"
-				maxW="md"
-				bg="white"
-				rounded="xl"
-				boxShadow="sm">
-				<form>
-					<HStack>
-						<FormControl id="firstName" isRequired>
-							<FormLabel>First Name</FormLabel>
-							<Input placeholder="John" />
-						</FormControl>
-
-						<FormControl id="lastName">
-							<FormLabel>Last Name</FormLabel>
-							<Input placeholder="Doe" />
-						</FormControl>
-					</HStack>
-
-					<FormControl id="email" isRequired>
-						<FormLabel>Email address</FormLabel>
-						<Input type="email" placeholder="your.email@example.com" />
+						{errors.firstname ? (
+							<FormErrorMessage>Email is required.</FormErrorMessage>
+						) : null}
 					</FormControl>
 
-					<FormControl id="password" isRequired>
-						<FormLabel>Password</FormLabel>
-						<InputGroup>
-							<Input
-								placeholder="wJuhl24R01A&"
-								type={show ? "text" : "password"}
-							/>
-							<InputRightElement mx={2}>
-								<Button
-									variant="unstyled"
-									onClick={() => setShow((show) => !show)}>
-									{show ? "show" : "hide"}
-								</Button>
-							</InputRightElement>
-						</InputGroup>
+					<FormControl id="lastName">
+						<FormLabel>Last Name</FormLabel>
+						<Input placeholder="Doe" {...register("lastname")} />
 					</FormControl>
+				</HStack>
 
-					<Button colorScheme="yellow" w="full" mt={6}>
-						Sign up
-					</Button>
-				</form>
-			</Stack>
+				<FormControl id="email">
+					<FormLabel>Email address</FormLabel>
+					<Input
+						type="email"
+						{...register("email")}
+						placeholder="your.email@example.com"
+					/>
+				</FormControl>
 
-			<Link to="/auth/signin">Already have an account? signin</Link>
-		</VStack>
+				<FormControl id="password">
+					<FormLabel>Password</FormLabel>
+					<InputGroup>
+						<Input
+							{...register("password")}
+							placeholder="wJuhl24R01A&"
+							type={show ? "text" : "password"}
+						/>
+						<InputRightElement mx={2}>
+							<Button
+								variant="unstyled"
+								onClick={() => setShow((show) => !show)}
+							>
+								{show ? "show" : "hide"}
+							</Button>
+						</InputRightElement>
+					</InputGroup>
+				</FormControl>
+
+				<Button
+					mt={6}
+					w="full"
+					type="submit"
+					isDisabled={!isValid}
+					colorScheme="messenger"
+				>
+					Sign up
+				</Button>
+			</form>
+		</AuthLayout>
 	)
 }
 
