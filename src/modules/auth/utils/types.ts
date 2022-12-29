@@ -11,8 +11,13 @@ export interface SignupFormData {
 	password: string
 }
 
-export type ForgotPassword = Pick<SigninFormData, "email">
-
 export interface OTPFormData {
 	pin: string
+}
+
+export type ForgotPassword = Pick<SigninFormData, "email">
+
+export interface ResetPasswordFormData {
+	password: string
+	token: string
 }

@@ -35,7 +35,7 @@ const OtpPage: React.FC = () => {
 
 	return (
 		<AuthLayout
-			title="Verify your Email"
+			title="Verify your email"
 			linkText="Back to signin"
 			linkURL="/auth/signin"
 		>
