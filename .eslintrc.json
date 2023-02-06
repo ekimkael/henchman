@@ -3,12 +3,7 @@
         "browser": true,
         "es2021": true
     },
-    "extends": [
-        "plugin:react/recommended",
-        "plugin:react/jsx-runtime",
-        "standard-with-typescript",
-        "prettier"
-    ],
+    "extends": [ "react-app","prettier"],
     "overrides": [
     ],
     "parserOptions": {
@@ -22,6 +17,9 @@
     "rules": {
         "indent":["error","tab"],
         "no-tabs":"off",
+        "checksVoidReturn": "off",
+        "@typescript-eslint/no-misused-promises": "off",
+        "@typescript-eslint/strict-boolean-expressions": "off",
         "@typescript-eslint/explicit-function-return-type": "off"
     },
     "ignorePatterns":["vite.config.ts","vite-env.d.ts"]
