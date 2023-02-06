@@ -1,16 +1,13 @@
 import React from "react"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
-// import Navbar from "../components/Navbar"
-import AuthRoutes from "../modules/auth/route"
+import AuthRoutes from "@auth/route"
 
-// interface Props = {}
+interface Props {}
 
-const RootRouter: React.FC<{}> = (props) => {
+const RootRouter: React.FC<Props> = (props) => {
 	return (
 		<BrowserRouter>
-			{/* <Navbar /> */}
-
 			<Routes>
 				<Route path="/" element={<div />} />
 				<Route path="auth/*" element={<AuthRoutes />} />

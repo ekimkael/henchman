@@ -9,7 +9,13 @@ import react from "@vitejs/plugin-react"
 export default defineConfig({
 	plugins: [react()],
 	resolve: {
-		alias: [{ find: "@", replacement: path.resolve(__dirname, "src") }],
+		alias: [
+			{ find: "@", replacement: path.resolve(__dirname, "src") },
+			{
+				find: "@auth",
+				replacement: path.resolve(__dirname, "src/modules/auth"),
+			},
+		],
 	},
 	test: {
 		globals: true,
