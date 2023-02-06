@@ -6,10 +6,8 @@ const useSignin = () => {
 
 	const mutation = useMutation(SigninAPI, {
 		onSuccess: (data) => {
-			// const { token, user } = data
 			client.setQueryData(["user"], data)
-
-			// router.push("/")
+			// do whatever needs to be done with signin data
 		},
 	})
 

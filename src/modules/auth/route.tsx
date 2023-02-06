@@ -6,9 +6,9 @@ import SigninPage from "./pages/signin"
 import SignupPage from "./pages/signup"
 import ForgotPasswordPage from "./pages/forgot-password"
 
-// interface Props = {}
+interface Props {}
 
-const AuthRoutes: React.FC<{}> = (props) => {
+const AuthRoutes: React.FC<Props> = () => {
 	return (
 		<>
 			<Routes>
