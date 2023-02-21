@@ -86,7 +86,7 @@ const SignupPage: React.FC<{}> = () => {
 								variant="unstyled"
 								onClick={() => setShow((show) => !show)}
 							>
-								{show ? "show" : "hide"}
+								{show ? "hide" : "show"}
 							</Button>
 						</InputRightElement>
 					</InputGroup>
