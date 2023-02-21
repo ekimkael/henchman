@@ -2,8 +2,8 @@ import React from "react"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 import User from "@/modules/user"
-import AuthRoutes from "@auth/route"
 import Homepage from "@/pages/homepage"
+import AuthRoutes from "@/routes/auth.routes"
 import ProtectedRoute from "@auth/context/ProtectedRoute"
 import UnprotectedRoute from "@auth/context/UnprotectedRoute"
 
