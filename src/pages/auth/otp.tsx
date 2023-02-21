@@ -12,9 +12,9 @@ import { useNavigate } from "react-router-dom"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { Controller, SubmitHandler, useForm } from "react-hook-form"
 
-import AuthLayout from "../layouts"
-import { OTPFormData } from "../utils/types"
-import { schema } from "../utils/validations"
+import AuthLayout from "@/layouts/auth.layout"
+import { OTPFormData } from "@auth/utils/types"
+import { schema } from "@auth/utils/validations"
 
 const OtpPage: React.FC = () => {
 	const email = "username@mail.com"

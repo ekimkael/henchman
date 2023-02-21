@@ -12,9 +12,9 @@ import { Link, useNavigate } from "react-router-dom"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { useForm, SubmitHandler } from "react-hook-form"
 
-import AuthLayout from "../layouts"
-import { schema } from "../utils/validations"
-import { SigninFormData } from "../utils/types"
+import AuthLayout from "@/layouts/auth.layout"
+import { schema } from "@auth/utils/validations"
+import { SigninFormData } from "@auth/utils/types"
 
 const SigninPage: React.FC<{}> = () => {
 	const navigate = useNavigate()

@@ -13,11 +13,11 @@ import { useNavigate } from "react-router-dom"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { useForm, SubmitHandler } from "react-hook-form"
 
-import AuthLayout from "../layouts"
-import { schema } from "../utils/validations"
-import { SignupFormData } from "../utils/types"
+import AuthLayout from "@/layouts/auth.layout"
+import { schema } from "@auth/utils/validations"
+import { SignupFormData } from "@auth/utils/types"
 
-const SignupPage: React.FC<{}> = () => {
+const SignupPage: React.FC = () => {
 	const navigate = useNavigate()
 	const [show, setShow] = useState(false)
 
