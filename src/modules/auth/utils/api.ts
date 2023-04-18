@@ -1,17 +1,17 @@
 import axios from "@/config/axios"
 import { ResetPasswordFormData, SigninFormData, SignupFormData } from "./types"
 
-export const SignupAPI = async (inputs: SignupFormData): Promise<any> => {
+export const signupAPI = async (inputs: SignupFormData): Promise<any> => {
 	const result = await axios.post("/auth/signup", inputs)
 	return result?.data
 }
 
-export const SigninAPI = async (credentials: SigninFormData): Promise<any> => {
+export const signinAPI = async (credentials: SigninFormData): Promise<any> => {
 	const result = await axios.post("/auth/signin", credentials)
 	return result?.data
 }
 
-export const signOutAPI = async (): Promise<any> => {
+export const signoutAPI = async (): Promise<any> => {
 	const result = await axios.post("/auth/signout", {})
 	return result?.data
 }
@@ -29,5 +29,10 @@ export const resetPasswordAPI = async (
 		`/auth/reset-password?token=${token}`,
 		password
 	)
+	return result?.data
+}
+
+export const getUserAPI = async (): Promise<any> => {
+	const result = await axios.post("/me", {})
 	return result?.data
 }

@@ -1,4 +1,5 @@
-import { createContext, FC, ReactNode, useState } from "react"
+import { createContext, FC, ReactNode, useEffect, useState } from "react"
+import { getUserAPI } from "../utils/api"
 import { IAuthContext } from "../types"
 
 interface Props {
@@ -12,20 +13,30 @@ export const AuthProvider: FC<Props> = ({ children }) => {
 	const [user, setUser] = useState(undefined)
 	const [isLoading, setIsLoading] = useState(false)
 
-	// this function is suppose to handle user state
-	const checkIfIsLoggedIn = async () => {
+	// handle user state
+	const checkIfLoggedIn = async () => {
 		try {
 			setIsLoading(true)
-			await sessionStorage.getItem("token")
+			const token = await sessionStorage.getItem("token")
+
+			if (!user && token) {
+				const data = await getUserAPI()
+				setUser(data)
+			}
 		} catch (error) {
-			console.log(error)
+			// console.log(error)
+			// report the error
 		} finally {
 			setIsLoading(false)
 		}
 	}
 
+	useEffect(() => {
+		checkIfLoggedIn()
+	}, [])
+
 	// values to share in the context
-	const values = { user, setUser, isLoading }
+	const values = { user, setUser, isLoading: isLoading }
 
 	return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>
 }
